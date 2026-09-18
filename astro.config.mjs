@@ -8,7 +8,7 @@ import tailwindcss from '@tailwindcss/vite';
 // e.g. SITE_URL=https://prompt-master.example.com bun run build
 export default defineConfig({
   integrations: [react(), sitemap()],
-  site: import.meta.env.SITE_URL || 'https://prompt-master.example.com',
+  site: process.env.SITE_URL || 'https://prompt-master.example.com',
   vite: {
     plugins: [tailwindcss()],
   },
