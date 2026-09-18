@@ -1,12 +1,12 @@
 ## Development
 
-When starting the dev server, use background mode:
+Serve local dev through `portless` so it gets a stable HTTPS URL instead of a raw port:
 
 ```
-astro dev --background
+portless
 ```
 
-Manage the background server with `astro dev stop`, `astro dev status`, and `astro dev logs`.
+This starts `astro dev` and serves it at https://prompt-master-site.localhost. Read the real URL from `portless list` rather than assuming it, and do not hardcode a port — portless injects `--port` and `--host` itself. Run `portless doctor` when routing or HTTPS looks wrong.
 
 ## Documentation
 
