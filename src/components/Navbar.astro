@@ -32,14 +32,15 @@ import StarMark from './StarMark.astro';
         const links = document.querySelectorAll('header nav a[data-spy]');
         const map = new Map();
         links.forEach(l => map.set(l.getAttribute('data-spy'), l));
+        const visible = new Set();
         const obs = new IntersectionObserver((entries) => {
           for (const e of entries) {
-            if (e.isIntersecting) {
-              links.forEach(l => l.removeAttribute('aria-current'));
-              const l = map.get(e.target.id);
-              if (l) l.setAttribute('aria-current', 'true');
-            }
+            if (e.isIntersecting) visible.add(e.target.id);
+            else visible.delete(e.target.id);
           }
+          links.forEach(l => l.removeAttribute('aria-current'));
+          const next = [...visible].map(id => map.get(id)).find(Boolean);
+          if (next) next.setAttribute('aria-current', 'true');
         }, { rootMargin: '-40% 0px -55% 0px' });
         ['usage','how','profiles','patterns','install'].forEach(id => {
           const el = document.getElementById(id);
