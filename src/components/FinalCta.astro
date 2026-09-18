@@ -3,7 +3,9 @@ import StarMark from './StarMark.astro';
 ---
 
 <section aria-labelledby="cta-h" class="relative overflow-hidden bg-accent">
-  <div class="pointer-events-none absolute -right-24 top-1/2 h-96 w-96 -translate-y-1/2 opacity-[0.12]">
+  <div
+    class="pointer-events-none absolute -right-24 top-1/2 h-96 w-96 -translate-y-1/2 opacity-[0.12] [mask-image:linear-gradient(to_left,transparent_30%,black_72%)]"
+  >
     <StarMark
       stroke="var(--accent-ink)"
       class="spin-slow pointer-events-none h-full w-full"

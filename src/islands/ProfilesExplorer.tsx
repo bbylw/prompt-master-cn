@@ -27,17 +27,21 @@ export default function ProfilesExplorer() {
         ))}
       </div>
 
-      <div key={group} className="anim-swap mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      <div key={group} className="anim-swap mt-8 grid grid-cols-2 gap-2.5 sm:gap-3 lg:grid-cols-3">
         {visible.map((p, i) => (
           <div
             key={p.tool}
-            className="flex flex-col rounded-tile border border-line bg-bg p-4 transition-transform duration-200 hover:-translate-y-0.5 hover:border-line-strong hover:shadow-[0_10px_24px_-16px_rgba(13,11,16,0.35)]"
+            className="flex flex-col rounded-tile border border-line bg-bg p-3 transition-transform duration-200 hover:-translate-y-0.5 hover:border-line-strong hover:shadow-[0_10px_24px_-16px_rgba(13,11,16,0.35)] sm:p-4"
           >
-            <div className="flex items-center justify-between gap-2">
-              <h3 className="text-[14px] font-semibold text-ink">{p.tool}</h3>
-              <p className="font-mono text-[10.5px] shrink-0 text-accent truncate max-w-[100px]">{p.category}</p>
+            <div className="flex flex-col gap-0.5 sm:flex-row sm:items-center sm:justify-between sm:gap-2">
+              <h3 className="text-[13.5px] font-semibold text-ink sm:text-[14px]">{p.tool}</h3>
+              <p className="truncate font-mono text-[10.5px] text-accent sm:max-w-[100px] sm:shrink-0">
+                {p.category}
+              </p>
             </div>
-            <p className="mt-2 text-[13px] leading-relaxed text-muted line-clamp-2">{p.fixes}</p>
+            <p className="mt-1.5 text-[12.5px] leading-relaxed text-muted line-clamp-2 sm:mt-2 sm:text-[13px]">
+              {p.fixes}
+            </p>
           </div>
         ))}
       </div>
