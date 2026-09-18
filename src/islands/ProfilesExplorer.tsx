@@ -3,7 +3,9 @@ import { groups, profiles, type ProfileGroup } from '../data/profiles';
 
 export default function ProfilesExplorer() {
   const [group, setGroup] = useState<ProfileGroup | 'all'>('all');
+  const [expanded, setExpanded] = useState(false);
   const shown = group === 'all' ? profiles : profiles.filter((p) => p.group === group);
+  const visible = expanded ? shown : shown.slice(0, 12);
 
   return (
     <div>
@@ -25,18 +27,30 @@ export default function ProfilesExplorer() {
         ))}
       </div>
 
-      <div key={group} className="anim-swap mt-8 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {shown.map((p) => (
+      <div key={group} className="anim-swap mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        {visible.map((p, i) => (
           <div
             key={p.tool}
-            className="flex flex-col rounded-card border border-line bg-bg p-5 transition-transform duration-200 hover:-translate-y-0.5"
+            className="flex flex-col rounded-tile border border-line bg-bg p-4 transition-transform duration-200 hover:-translate-y-0.5 hover:border-line-strong hover:shadow-[0_10px_24px_-16px_rgba(13,11,16,0.35)]"
           >
-            <h3 className="text-[14.5px] font-semibold text-ink">{p.tool}</h3>
-            <p className="mt-1 font-mono text-[11px] text-accent">{p.category}</p>
-            <p className="mt-3 text-[13.5px] leading-relaxed text-muted">{p.fixes}</p>
+            <div className="flex items-center justify-between gap-2">
+              <h3 className="text-[14px] font-semibold text-ink">{p.tool}</h3>
+              <p className="font-mono text-[10.5px] shrink-0 text-accent truncate max-w-[100px]">{p.category}</p>
+            </div>
+            <p className="mt-2 text-[13px] leading-relaxed text-muted line-clamp-2">{p.fixes}</p>
           </div>
         ))}
       </div>
+
+      {shown.length > 12 && (
+        <button
+          type="button"
+          onClick={() => setExpanded(true)}
+          className="mt-6 flex h-10 w-fit items-center gap-2 rounded-full border border-line-strong px-5 text-sm font-semibold text-ink transition-colors duration-200 hover:border-ink active:scale-[0.99]"
+        >
+          展开全部 {shown.length} 个档案
+        </button>
+      )}
 
       <p className="mt-6 text-[13px] text-faint" aria-live="polite">
         共 {shown.length} 个档案

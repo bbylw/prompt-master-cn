@@ -14,7 +14,7 @@
   --elevated: #efecef;
   --ink: #1d1a20;
   --muted: #55505c;
-  --faint: #726c79;
+  --faint: #66606d;
   --line: #e6e2e8;
   --line-strong: #d3cdd7;
   --accent: #c13a12;
@@ -63,6 +63,8 @@
 html {
   scroll-behavior: smooth;
   background-color: var(--bg);
+  /* keep anchored sections clear of the sticky nav */
+  scroll-padding-top: 5rem;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -73,8 +75,18 @@ html {
   *::before,
   *::after {
     animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+/* prefers-reduced-transparency is a media feature, so it cannot live in @supports */
+@media (prefers-reduced-transparency: reduce) {
+  .nav-blur {
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    background-color: var(--bg);
   }
 }
 
@@ -120,6 +132,11 @@ body {
   @media (prefers-reduced-motion: no-preference) {
     .reveal {
       animation: fade-rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+    /* Split the timeline into a different selector so the CSS minifier
+       cannot fold it into the `animation` shorthand — Chromium rejects
+       view()/scroll() inside the shorthand and drops the whole declaration. */
+    :root .reveal {
       animation-timeline: view();
       animation-range: entry 0% entry 45%;
     }
@@ -131,4 +148,223 @@ body {
   .anim-swap {
     animation: none;
   }
+}
+
+/* Fixed film-grain texture: pointer-events-none, never on scrolling containers */
+.grain {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  pointer-events: none;
+  opacity: 0.032;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px 180px;
+}
+
+:root.dark .grain {
+  opacity: 0.05;
+}
+
+/* Reading progress: pure scroll-driven CSS, hidden where unsupported */
+.scroll-progress {
+  display: none;
+}
+
+@supports (animation-timeline: scroll()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .scroll-progress {
+      display: block;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 60;
+      height: 2px;
+      width: 100%;
+      background: var(--accent);
+      transform-origin: 0 50%;
+      transform: scaleX(0);
+      animation: progress-x linear both;
+    }
+    /* keep the timeline out of the shorthand (see .reveal note) */
+    :root .scroll-progress {
+      animation-timeline: scroll(root);
+    }
+  }
+}
+
+@keyframes progress-x {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+/* Line-mask headline reveal */
+.line-mask {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+}
+
+.line-mask > span {
+  display: block;
+  animation: line-rise 0.75s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes line-rise {
+  from { transform: translateY(112%); }
+  to { transform: translateY(0); }
+}
+
+/* Accent underline that swipes in */
+.u-swipe {
+  background-image: linear-gradient(var(--accent), var(--accent));
+  background-repeat: no-repeat;
+  background-position: 0 92%;
+  background-size: 100% 0.1em;
+  animation: u-grow 0.7s 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes u-grow {
+  from { background-size: 0% 0.1em; }
+  to { background-size: 100% 0.1em; }
+}
+
+/* Pipeline rail for the how-it-works list */
+.step {
+  position: relative;
+  padding-left: 2.25rem;
+}
+
+.step-rail {
+  position: absolute;
+  left: 4px;
+  top: 6px;
+  bottom: -6px;
+  width: 2px;
+  background: var(--line);
+}
+
+.step:last-child .step-rail {
+  bottom: auto;
+  height: 10px;
+}
+
+.step-rail::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--accent);
+  transform-origin: top;
+  transform: scaleY(0);
+}
+
+.step-node {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 10px;
+  height: 10px;
+  translate: -50% 0;
+  border-radius: 9999px;
+  background: var(--line-strong);
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .step-rail::after {
+      animation: rail-fill linear both;
+    }
+    .step-node {
+      animation: node-light linear both;
+    }
+    /* keep timelines out of the shorthand (see .reveal note) */
+    :root .step-rail::after {
+      animation-timeline: view();
+      animation-range: entry 20% cover 45%;
+    }
+    :root .step-node {
+      animation-timeline: view();
+      animation-range: entry 10% entry 45%;
+    }
+  }
+}
+
+@keyframes rail-fill {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+
+@keyframes node-light {
+  from { background: var(--line-strong); }
+  to { background: var(--accent); }
+}
+
+/* Card materiality: hairline top highlight plus tinted shadow */
+.card-mat {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.05),
+    0 14px 36px -20px rgb(13 11 16 / 0.35);
+}
+
+:root:not(.dark) .card-mat {
+  box-shadow:
+    inset 0 1px 0 rgb(255 255 255 / 0.75),
+    0 18px 40px -24px rgb(29 26 32 / 0.28);
+}
+
+/* Scrollspy: current section link in the sticky nav */
+.nav-link[aria-current="true"] {
+  background: var(--elevated);
+  color: var(--ink);
+}
+
+/* Back-to-top floating button */
+.to-top {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(8px);
+}
+
+.to-top.show {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+/* Slow brand rotation */
+@keyframes spin-slow {
+  to { transform: rotate(360deg); }
+}
+
+.spin-slow {
+  animation: spin-slow 140s linear infinite;
+}
+
+/* Theme-aware slim scrollbars for overflow containers */
+.scroll-slim {
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-strong) transparent;
+}
+
+.scroll-slim::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.scroll-slim::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scroll-slim::-webkit-scrollbar-thumb {
+  background: var(--line-strong);
+  border-radius: 9999px;
+}
+
+.scroll-slim::-webkit-scrollbar-thumb:hover {
+  background: var(--faint);
+}
+
+.scroll-slim::-webkit-scrollbar-corner {
+  background: transparent;
 }

@@ -19,7 +19,7 @@ export default function CopyCode({ code, caption }: { code: string; caption?: st
           {copied ? <Check size={13} weight="bold" /> : <Copy size={13} />}
           {copied ? '已复制' : '复制'}
         </button>
-        <pre className="overflow-x-auto rounded-tile border border-line bg-code-bg p-5 pr-28 font-mono text-[13px] leading-relaxed text-ink">
+        <pre className="scroll-slim overflow-x-auto rounded-tile border border-line bg-code-bg p-5 pr-28 font-mono text-[13px] leading-relaxed text-ink">
           <code>{code}</code>
         </pre>
       </div>

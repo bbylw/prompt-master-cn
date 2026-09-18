@@ -1,5 +1,6 @@
 import { Copy, Check } from '@phosphor-icons/react';
 import { useCopy } from '../lib/useCopy';
+import { useEffect, useRef, useState } from 'react';
 
 export interface PromptCardProps {
   request: string;
@@ -10,13 +11,32 @@ export interface PromptCardProps {
 
 export default function PromptCard({ request, prompt, meta, scrollable }: PromptCardProps) {
   const { copied, copy } = useCopy();
+  const preRef = useRef<HTMLPreElement>(null);
+  const [fadeRight, setFadeRight] = useState(false);
+
+  useEffect(() => {
+    const update = () => {
+      const el = preRef.current;
+      if (!el) return;
+      setFadeRight(el.scrollWidth > el.clientWidth + el.scrollLeft + 4);
+    };
+    update();
+    const ro = new ResizeObserver(update);
+    const el = preRef.current;
+    if (el) ro.observe(el);
+    window.addEventListener('scroll', update, true);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener('scroll', update, true);
+    };
+  }, []);
 
   return (
-    <div className="reveal w-full rounded-card border border-line bg-surface shadow-[0_20px_60px_-24px_rgba(19,10,24,0.28)]">
+    <div className="reveal card-mat w-full rounded-card shadow-[0_20px_60px_-24px_rgba(19,10,24,0.28)]">
       <div className="border-b border-line px-5 py-4">
         <p className="text-[11px] font-medium text-faint">用户输入</p>
         <p className="mt-1.5 text-sm leading-relaxed text-ink">
-          “{request}”
+          "{request}"
         </p>
       </div>
 
@@ -31,12 +51,18 @@ export default function PromptCard({ request, prompt, meta, scrollable }: Prompt
         </button>
         <p className="text-[11px] font-medium text-faint">生成的提示词</p>
         <pre
-          className={`mt-1.5 overflow-x-auto rounded-tile bg-code-bg p-4 font-mono text-[12.5px] leading-relaxed whitespace-pre text-ink ${
+          ref={preRef}
+          onScroll={(e) => {
+            const el = e.currentTarget;
+            setFadeRight(el.scrollWidth > el.clientWidth + el.scrollLeft + 4);
+          }}
+          className={`scroll-slim mt-1.5 overflow-x-auto rounded-tile bg-code-bg p-4 font-mono text-[12.5px] leading-relaxed whitespace-pre text-ink ${
             scrollable ? 'max-h-[420px] overflow-y-auto' : ''
           }`}
         >
           {prompt}
         </pre>
+        {fadeRight && <div className="pointer-events-none absolute inset-y-0 right-0 w-10 rounded-r-tile bg-gradient-to-l from-code-bg to-transparent" />}
       </div>
 
       <div className="grid grid-cols-2 gap-x-6 gap-y-3 border-t border-line px-5 py-4">

@@ -1,5 +1,6 @@
 ---
 import PromptCard from '../islands/PromptCard';
+import StarMark from './StarMark.astro';
 
 const mjPrompt = `lone samurai standing in heavy rain at night, traditional armor,
 neon reflections on wet cobblestone street, cinematic lighting,
@@ -14,20 +15,27 @@ negative: blurry, low quality, watermark, cartoon, anime, extra limbs`;
     class="pointer-events-none absolute -top-40 right-[-10%] h-[480px] w-[480px] rounded-full bg-[radial-gradient(circle,var(--accent-soft),transparent_65%)]"
     aria-hidden="true"
   ></div>
+  <StarMark
+    class="spin-slow pointer-events-none absolute -right-28 top-6 h-[520px] w-[520px] opacity-[0.05]"
+    aria-hidden="true"
+  />
 
   <div
-    class="mx-auto grid max-w-6xl grid-cols-1 items-center gap-12 px-4 pt-14 pb-16 sm:px-6 lg:grid-cols-[1.02fr_1fr] lg:gap-16 lg:pt-20 lg:pb-24"
+    class="mx-auto grid max-w-6xl grid-cols-1 items-center gap-12 px-4 pt-14 pb-16 sm:px-6 lg:grid-cols-[minmax(0,1.02fr)_minmax(0,1fr)] lg:gap-16 lg:pt-20 lg:pb-24"
   >
     <div>
       <h1
-        class="max-w-[15ch] font-display text-[2.4rem] leading-[1.12] font-bold tracking-tight text-ink md:text-[3.1rem]"
+        class="font-display text-[2.4rem] leading-[1.14] font-bold tracking-tight text-ink md:text-[3rem] lg:text-[3.1rem]"
       >
-        为任何 AI 工具，写出<span class="text-accent">一次到位</span>的提示词
+        <span class="line-mask"><span>为任何 AI 工具，</span></span>
+        <span class="line-mask"
+          ><span style="animation-delay:110ms">写出<span class="u-swipe text-accent">一次到位</span>的提示词</span></span
+        >
       </h1>
-      <p class="mt-5 max-w-[44ch] text-[15px] leading-relaxed text-muted md:text-base">
+      <p class="anim-swap mt-5 max-w-[44ch] text-[15px] leading-relaxed text-muted md:text-base" style="animation-delay:90ms">
         零 token 浪费，完整上下文与记忆保持。不必重试四次，才拿到第一次就该得到的答案。
       </p>
-      <div class="mt-8 flex flex-wrap items-center gap-3">
+      <div class="anim-swap mt-8 flex flex-wrap items-center gap-3" style="animation-delay:180ms">
         <a
           href="https://github.com/nidhinjs/prompt-master"
           target="_blank"

@@ -43,6 +43,9 @@ const jsonLd = {
     <meta property="og:url" content={canonical} />
     <meta property="og:locale" content="zh_CN" />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1280" />
+    <meta property="og:image:height" content="640" />
+    <meta property="og:image:alt" content="Prompt Master 品牌横幅：Write once. Get it right" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
@@ -64,6 +67,8 @@ const jsonLd = {
     </script>
   </head>
   <body class="min-h-dvh">
+    <div class="scroll-progress" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
     <a
       href="#main"
       class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[100] focus:rounded-tile focus:bg-accent focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-accent-ink"
@@ -73,5 +78,25 @@ const jsonLd = {
       <slot />
     </main>
     <Footer />
+    <button
+      type="button"
+      id="to-top"
+      aria-label="回到顶部"
+      class="to-top fixed bottom-5 right-5 z-40 flex h-11 w-11 items-center justify-center rounded-full border border-line bg-surface text-muted shadow-lg transition-all duration-200 hover:text-ink"
+    >
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M18 15l-6-6-6 6"/>
+      </svg>
+    </button>
+    <script is:inline>
+      (function() {
+        const btn = document.getElementById('to-top');
+        if (!btn) return;
+        const onScroll = () => btn.classList.toggle('show', window.scrollY > 800);
+        onScroll();
+        window.addEventListener('scroll', onScroll, { passive: true });
+        btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+      })();
+    </script>
   </body>
 </html>

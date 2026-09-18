@@ -1,39 +1,60 @@
 ---
+import { UserCircle, Copy, Code, Anchor, MagnifyingGlass, Prohibit } from '@phosphor-icons/react';
+
 const techniques = [
-  { en: 'Role Assignment', zh: '角色设定', desc: '指定具体的专家身份，校准深度与用词' },
-  { en: 'Few-Shot Examples', zh: '少样本示例', desc: '当格式一致性比指令更重要时，加入 2 至 5 个示例' },
-  { en: 'XML Structural Tags', zh: 'XML 结构标签', desc: '对能可靠解析 XML 的 Claude 系工具，用 XML 包裹各部分' },
-  { en: 'Grounding Anchors', zh: '事实锚定', desc: '为事实性与引用类任务添加反幻觉规则' },
-  { en: 'Auditable Reasoning', zh: '可审计推理', desc: '要求给出结论、假设、证据与验证，而非隐藏推理' },
+  { en: 'Role Assignment', zh: '角色设定', desc: '指定具体的专家身份，校准深度与用词', Icon: UserCircle, featured: true },
+  { en: 'Few-Shot Examples', zh: '少样本示例', desc: '当格式一致性比指令更重要时，加入 2 至 5 个示例', Icon: Copy },
+  { en: 'XML Structural Tags', zh: 'XML 结构标签', desc: '对能可靠解析 XML 的 Claude 系工具，用 XML 包裹各部分', Icon: Code },
+  { en: 'Grounding Anchors', zh: '事实锚定', desc: '为事实性与引用类任务添加反幻觉规则', Icon: Anchor },
+  { en: 'Auditable Reasoning', zh: '可审计推理', desc: '要求给出结论、假设、证据与验证，而非隐藏推理', Icon: MagnifyingGlass },
 ];
 ---
 
 <section id="techniques" aria-labelledby="techniques-h" class="border-b border-line bg-bg">
   <div class="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:py-28">
-    <h2 id="techniques-h" class="font-display text-3xl leading-[1.2] font-bold tracking-tight text-ink md:text-4xl">
+    <p class="font-mono text-[11px] font-semibold tracking-[0.2em] text-accent uppercase">07 · Techniques</p>
+    <h2 id="techniques-h" class="mt-3 font-display text-3xl leading-[1.2] font-bold tracking-tight text-ink md:text-4xl">
       5 项安全技术，按需应用
     </h2>
     <p class="mt-4 max-w-[52ch] text-[15px] leading-relaxed text-muted">
       Prompt Master 只使用效果可靠、边界清晰的技术。
     </p>
 
-    <div class="mt-10 grid grid-cols-1 gap-4 md:grid-cols-2">
-      {techniques.map((t, i) => (
-        <div class:list={['rounded-card border border-line bg-surface p-6', i === techniques.length - 1 && 'md:col-span-2']}>
-          <h3 class="font-display text-[15px] font-bold text-ink">
-            {t.en}
-            <span class="ml-2 font-sans text-[13px] font-medium text-accent">{t.zh}</span>
+    <div class="mt-10 grid grid-cols-1 gap-4 md:grid-cols-3">
+      {techniques.map(({ en, zh, desc, Icon, featured }) => (
+        <div
+          class:list={[
+            'reveal rounded-card p-6 transition-transform duration-200 hover:-translate-y-0.5',
+            featured
+              ? 'border border-accent/25 bg-accent-soft md:col-span-2'
+              : 'card-mat',
+          ]}
+        >
+          <Icon
+            size={featured ? 22 : 18}
+            weight="bold"
+            className="text-accent"
+            aria-hidden="true"
+          />
+          <h3 class:list={['mt-4 font-display font-bold text-ink', featured ? 'text-lg' : 'text-[15px]']}>
+            {en}
+            <span class:list={['ml-2 font-sans font-medium text-accent', featured ? 'text-sm' : 'text-[13px]']}>{zh}</span>
           </h3>
-          <p class="mt-2 text-sm leading-relaxed text-muted">{t.desc}</p>
+          <p class:list={['leading-relaxed text-muted', featured ? 'mt-2 max-w-[52ch] text-[15px]' : 'mt-2 text-sm']}>
+            {desc}
+          </p>
         </div>
       ))}
     </div>
 
-    <div class="mt-4 rounded-card border border-accent/25 bg-accent-soft p-6">
-      <h3 class="text-[15px] font-semibold text-ink">明确排除的技术</h3>
-      <p class="mt-2 max-w-[60ch] text-sm leading-relaxed text-muted">
-        Tree of Thought、Graph of Thought、Universal Self-Consistency、提示链。这些方法已知会产生幻觉或不可预测的输出，被永久排除在流水线之外。
-      </p>
+    <div class="card-mat mt-4 flex gap-4 rounded-card p-6">
+      <Prohibit size={20} weight="bold" className="mt-0.5 shrink-0 text-accent" aria-hidden="true" />
+      <div>
+        <h3 class="text-[15px] font-semibold text-ink">明确排除的技术</h3>
+        <p class="mt-2 max-w-[60ch] text-sm leading-relaxed text-muted">
+          Tree of Thought、Graph of Thought、Universal Self-Consistency、提示链。这些方法已知会产生幻觉或不可预测的输出，被永久排除在流水线之外。
+        </p>
+      </div>
     </div>
   </div>
 </section>

@@ -4,7 +4,7 @@ import StarMark from './StarMark.astro';
 ---
 
 <header
-  class="sticky top-0 z-50 border-b border-line bg-bg/85 backdrop-blur-md supports-[prefers-reduced-transparency:reduce]:bg-bg"
+  class="nav-blur sticky top-0 z-50 border-b border-line bg-bg/85 backdrop-blur-md"
 >
   <nav
     class="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6"
@@ -16,13 +16,42 @@ import StarMark from './StarMark.astro';
     </a>
 
     <div class="hidden items-center gap-1 lg:flex">
-      <a href="#usage" class="rounded-full px-3.5 py-2 text-sm font-medium text-muted transition-colors duration-200 hover:bg-elevated hover:text-ink">用法</a>
-      <a href="#how" class="rounded-full px-3.5 py-2 text-sm font-medium text-muted transition-colors duration-200 hover:bg-elevated hover:text-ink">原理</a>
-      <a href="#profiles" class="rounded-full px-3.5 py-2 text-sm font-medium text-muted transition-colors duration-200 hover:bg-elevated hover:text-ink">工具档案</a>
-      <a href="#patterns" class="rounded-full px-3.5 py-2 text-sm font-medium text-muted transition-colors duration-200 hover:bg-elevated hover:text-ink">模式库</a>
-      <a href="#install" class="rounded-full px-3.5 py-2 text-sm font-medium text-muted transition-colors duration-200 hover:bg-elevated hover:text-ink">安装</a>
+      <a href="#usage" class="nav-link rounded-full px-3.5 py-2 text-sm font-medium text-muted transition-colors duration-200 hover:bg-elevated hover:text-ink" data-spy="usage">用法</a>
+      <a href="#how" class="nav-link rounded-full px-3.5 py-2 text-sm font-medium text-muted transition-colors duration-200 hover:bg-elevated hover:text-ink" data-spy="how">原理</a>
+      <a href="#profiles" class="nav-link rounded-full px-3.5 py-2 text-sm font-medium text-muted transition-colors duration-200 hover:bg-elevated hover:text-ink" data-spy="profiles">工具档案</a>
+      <a href="#patterns" class="nav-link rounded-full px-3.5 py-2 text-sm font-medium text-muted transition-colors duration-200 hover:bg-elevated hover:text-ink" data-spy="patterns">模式库</a>
+      <a href="#install" class="nav-link rounded-full px-3.5 py-2 text-sm font-medium text-muted transition-colors duration-200 hover:bg-elevated hover:text-ink" data-spy="install">安装</a>
     </div>
 
     <NavActions client:load />
   </nav>
+
+  <script is:inline defer>
+    (function() {
+      const init = () => {
+        const links = document.querySelectorAll('header nav a[data-spy]');
+        const map = new Map();
+        links.forEach(l => map.set(l.getAttribute('data-spy'), l));
+        const obs = new IntersectionObserver((entries) => {
+          for (const e of entries) {
+            if (e.isIntersecting) {
+              links.forEach(l => l.removeAttribute('aria-current'));
+              const l = map.get(e.target.id);
+              if (l) l.setAttribute('aria-current', 'true');
+            }
+          }
+        }, { rootMargin: '-40% 0px -55% 0px' });
+        ['usage','how','profiles','patterns','install'].forEach(id => {
+          const el = document.getElementById(id);
+          if (el) obs.observe(el);
+        });
+      };
+      
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init, { once: true });
+      } else {
+        init();
+      }
+    })();
+  </script>
 </header>

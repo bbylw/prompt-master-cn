@@ -4,7 +4,8 @@ import { ArrowRight } from '@phosphor-icons/react';
 
 <section aria-labelledby="problem-h" class="border-b border-line bg-bg">
   <div class="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:py-28">
-    <h2 id="problem-h" class="max-w-[22ch] font-display text-3xl leading-[1.2] font-bold tracking-tight text-ink md:text-4xl">
+    <p class="font-mono text-[11px] font-semibold tracking-[0.2em] text-accent uppercase">01 · Problem</p>
+    <h2 id="problem-h" class="mt-3 max-w-[22ch] font-display text-3xl leading-[1.2] font-bold tracking-tight text-ink md:text-4xl">
       每个 AI 用户都在以同样的方式浪费额度
     </h2>
 
@@ -17,17 +18,35 @@ import { ArrowRight } from '@phosphor-icons/react';
       ))}
     </ol>
 
-    <p class="mt-6 max-w-[52ch] text-[15px] leading-relaxed text-muted">
-      这就是 3 次被浪费的调用。乘以每天 50 个提示，那就是实实在在流走的金钱和时间。
-    </p>
+    <div class="mt-16 grid grid-cols-1 gap-12 lg:mt-24 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,1fr)] lg:gap-20">
+      <figure class="reveal">
+        <span class="font-display text-6xl leading-none font-bold text-accent" aria-hidden="true">“</span>
+        <blockquote class="mt-2 max-w-[17em] font-display text-2xl leading-[1.35] font-bold tracking-tight text-balance text-ink md:text-[2.5rem] md:leading-[1.25]">
+          最好的提示词不是最长的那个，而是每一个词都在承担作用的。
+        </blockquote>
+        <figcaption class="mt-5 max-w-[46ch] text-[15px] leading-relaxed text-muted">
+          大多数提示词生成器只会让提示更长。这项技能是让提示更锋利。
+        </figcaption>
+      </figure>
 
-    <figure class="mt-16 max-w-[34ch] border-l-2 border-accent pl-6 lg:mt-20">
-      <blockquote class="font-display text-xl leading-[1.5] font-semibold tracking-tight text-ink md:text-2xl">
-        “最好的提示词不是最长的那个，而是每一个词都在承担作用的。”
-      </blockquote>
-      <figcaption class="mt-4 text-sm text-muted">
-        大多数提示词生成器只会让提示更长。这项技能是让提示更锋利。
-      </figcaption>
-    </figure>
+      <div class="reveal flex flex-col justify-center gap-8 border-t border-line pt-10 lg:border-t-0 lg:border-l lg:pt-0 lg:pl-16">
+        <div>
+          <p class="font-display text-5xl font-bold tracking-tight text-accent md:text-6xl">
+            3<span class="ml-2 text-xl font-semibold text-muted md:text-2xl">次</span>
+          </p>
+          <p class="mt-2.5 max-w-[26ch] text-sm leading-relaxed text-muted">
+            被浪费的调用，只因为第一个提示写模糊了
+          </p>
+        </div>
+        <div class="border-t border-line pt-8">
+          <p class="font-display text-5xl font-bold tracking-tight text-accent md:text-6xl">
+            ×50<span class="ml-2 text-xl font-semibold text-muted md:text-2xl">每天</span>
+          </p>
+          <p class="mt-2.5 max-w-[26ch] text-sm leading-relaxed text-muted">
+            每日提示量，把浪费放大成流走的金钱和时间
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
 </section>

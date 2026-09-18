@@ -12,7 +12,7 @@ export default function ChangelogList() {
         {shown.map((r, i) => (
           <li
             key={r.version}
-            className={`grid grid-cols-[auto_1fr] gap-x-5 gap-y-1 py-5 md:grid-cols-[160px_1fr] ${
+            className={`grid grid-cols-[auto_1fr] gap-x-6 gap-y-1 py-5 md:grid-cols-[110px_1fr] ${
               i < shown.length - 1 ? 'border-b border-line' : ''
             }`}
           >

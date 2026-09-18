@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react';
 import { Sun, Moon, List, X, GithubLogo } from '@phosphor-icons/react';
 
@@ -17,6 +17,24 @@ export default function NavActions() {
   const [open, setOpen] = useState(false);
   const { toggle } = useTheme();
   const reduce = useReducedMotion();
+  const openBtnRef = useRef<HTMLButtonElement>(null);
+  const panelRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setOpen(false);
+    };
+    document.addEventListener('keydown', onKey);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    panelRef.current?.focus();
+    return () => {
+      document.removeEventListener('keydown', onKey);
+      document.body.style.overflow = prevOverflow;
+      openBtnRef.current?.focus();
+    };
+  }, [open]);
 
   return (
     <div className="flex items-center gap-1.5">
@@ -24,7 +42,7 @@ export default function NavActions() {
         type="button"
         onClick={toggle}
         aria-label="切换深浅主题"
-        className="flex h-9 w-9 items-center justify-center rounded-full text-muted transition-colors duration-200 hover:bg-elevated hover:text-ink active:scale-[0.96]"
+        className="flex h-9 w-9 items-center justify-center rounded-full text-muted transition-colors duration-200 hover:bg-elevated hover:text-ink active:scale-[0.96] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
       >
         <Moon size={18} weight="bold" className="hidden dark:inline" />
         <Sun size={18} weight="bold" className="dark:hidden" />
@@ -34,18 +52,20 @@ export default function NavActions() {
         href="https://github.com/nidhinjs/prompt-master"
         target="_blank"
         rel="noopener noreferrer"
-        className="hidden h-9 items-center gap-2 rounded-full bg-ink px-4 text-[13px] font-semibold text-bg transition-transform duration-200 hover:-translate-y-px active:translate-y-0 sm:flex"
+        className="hidden h-9 items-center gap-2 rounded-full bg-ink px-4 text-[13px] font-semibold text-bg transition-transform duration-200 hover:-translate-y-px active:translate-y-0 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent sm:flex"
       >
         <GithubLogo size={15} weight="fill" />
         获取技能
       </a>
 
       <button
+        ref={openBtnRef}
         type="button"
         onClick={() => setOpen(true)}
         aria-label="打开菜单"
         aria-expanded={open}
-        className="flex h-9 w-9 items-center justify-center rounded-full text-muted transition-colors duration-200 hover:bg-elevated hover:text-ink lg:hidden"
+        aria-haspopup="dialog"
+        className="flex h-9 w-9 items-center justify-center rounded-full text-muted transition-colors duration-200 hover:bg-elevated hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent lg:hidden"
       >
         <List size={20} weight="bold" />
       </button>
@@ -66,8 +86,12 @@ export default function NavActions() {
               onClick={() => setOpen(false)}
             />
             <motion.nav
-              aria-label="移动导航"
-              className="absolute inset-x-3 top-3 rounded-card border border-line bg-surface p-3 shadow-[0_24px_64px_rgba(0,0,0,0.18)]"
+              ref={panelRef}
+              tabIndex={-1}
+              role="dialog"
+              aria-modal="true"
+              aria-label="导航菜单"
+              className="absolute inset-x-3 top-3 rounded-card border border-line bg-surface p-3 shadow-[0_24px_64px_rgba(0,0,0,0.18)] focus:outline-none"
               initial={reduce ? false : { y: -12, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               exit={{ y: -12, opacity: 0 }}
@@ -79,7 +103,7 @@ export default function NavActions() {
                   type="button"
                   onClick={() => setOpen(false)}
                   aria-label="关闭菜单"
-                  className="flex h-8 w-8 items-center justify-center rounded-full text-muted hover:bg-elevated hover:text-ink"
+                  className="flex h-8 w-8 items-center justify-center rounded-full text-muted hover:bg-elevated hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
                 >
                   <X size={18} weight="bold" />
                 </button>
@@ -96,7 +120,7 @@ export default function NavActions() {
                   key={href}
                   href={href}
                   onClick={() => setOpen(false)}
-                  className="block rounded-tile px-3 py-2.5 text-[15px] font-medium text-ink hover:bg-elevated"
+                  className="block rounded-tile px-3 py-2.5 text-[15px] font-medium text-ink hover:bg-elevated focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-accent"
                 >
                   {label}
                 </a>
@@ -105,7 +129,7 @@ export default function NavActions() {
                 href="https://github.com/nidhinjs/prompt-master"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-2 flex items-center justify-center gap-2 rounded-full bg-accent px-4 py-2.5 text-sm font-semibold text-accent-ink"
+                className="mt-2 flex items-center justify-center gap-2 rounded-full bg-accent px-4 py-2.5 text-sm font-semibold text-accent-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
               >
                 <GithubLogo size={16} weight="fill" />
                 获取技能

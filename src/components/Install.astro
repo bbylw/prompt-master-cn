@@ -5,46 +5,49 @@ const cloneCmd = `mkdir -p ~/.claude/skills
 git clone https://github.com/nidhinjs/prompt-master.git ~/.claude/skills/prompt-master`;
 ---
 
-<section id="install" aria-labelledby="install-h" class="border-b border-line bg-surface">
-  <div class="mx-auto max-w-3xl px-4 py-20 sm:px-6 lg:py-28">
-    <h2 id="install-h" class="font-display text-3xl leading-[1.2] font-bold tracking-tight text-ink md:text-4xl">
+<section id="install" aria-labelledby="install-h" class="border-b border-line bg-bg">
+  <div class="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:py-28">
+    <p class="font-mono text-[11px] font-semibold tracking-[0.2em] text-accent uppercase">10 · Install</p>
+    <h2 id="install-h" class="mt-3 font-display text-3xl leading-[1.2] font-bold tracking-tight text-ink md:text-4xl">
       两步装进 Claude.ai
     </h2>
 
-    <ol class="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2">
-      <li class="rounded-card border border-line bg-bg p-6">
-        <p class="font-mono text-[12px] text-accent">第一步</p>
-        <h3 class="mt-2 text-[15px] font-semibold text-ink">下载</h3>
-        <p class="mt-1.5 text-sm leading-relaxed text-muted">下载 GitHub 仓库的 ZIP 压缩包。</p>
-      </li>
-      <li class="rounded-card border border-line bg-bg p-6">
-        <p class="font-mono text-[12px] text-accent">第二步</p>
-        <h3 class="mt-2 text-[15px] font-semibold text-ink">上传</h3>
-        <p class="mt-1.5 text-sm leading-relaxed text-muted">
-          前往 claude.ai，侧边栏 Customize（自定义）→ Skills（技能）→ Upload a Skill（上传技能）。
-        </p>
-      </li>
-    </ol>
+    <div class="mt-10 max-w-3xl">
+      <ol class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <li class="reveal rounded-card border border-line bg-surface p-6 transition-transform duration-200 hover:-translate-y-0.5 hover:border-line-strong hover:shadow-[0_10px_24px_-16px_rgba(13,11,16,0.35)]">
+          <p class="font-mono text-[12px] text-accent">第一步</p>
+          <h3 class="mt-2 text-[15px] font-semibold text-ink">下载</h3>
+          <p class="mt-1.5 text-sm leading-relaxed text-muted">下载 GitHub 仓库的 ZIP 压缩包。</p>
+        </li>
+        <li class="reveal rounded-card border border-line bg-surface p-6 transition-transform duration-200 hover:-translate-y-0.5 hover:border-line-strong hover:shadow-[0_10px_24px_-16px_rgba(13,11,16,0.35)]">
+          <p class="font-mono text-[12px] text-accent">第二步</p>
+          <h3 class="mt-2 text-[15px] font-semibold text-ink">上传</h3>
+          <p class="mt-1.5 text-sm leading-relaxed text-muted">
+            前往 claude.ai，侧边栏 Customize（自定义）→ Skills（技能）→ Upload a Skill（上传技能）。
+          </p>
+        </li>
+      </ol>
 
-    <div class="mt-10">
-      <h3 class="text-[15px] font-semibold text-ink">
-        或者：克隆到 Claude Code 技能目录
-        <span class="ml-1.5 text-[13px] font-normal text-faint">（不推荐）</span>
-      </h3>
-      <div class="mt-4">
-        <CopyCode client:visible code={cloneCmd} />
+      <div class="mt-10">
+        <h3 class="text-[15px] font-semibold text-ink">
+          或者：克隆到 Claude Code 技能目录
+          <span class="ml-1.5 text-[13px] font-normal text-faint">（不推荐）</span>
+        </h3>
+        <div class="mt-4">
+          <CopyCode client:visible code={cloneCmd} />
+        </div>
       </div>
-    </div>
 
-    <div class="mt-12">
-      <a
-        href="https://github.com/nidhinjs/prompt-master"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="flex h-12 w-fit items-center rounded-full bg-accent px-7 text-[15px] font-semibold text-accent-ink transition-transform duration-200 hover:-translate-y-0.5 active:translate-y-0"
-      >
-        获取技能
-      </a>
+      <div class="mt-12">
+        <a
+          href="https://github.com/nidhinjs/prompt-master"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex h-12 w-fit items-center rounded-full bg-accent px-7 text-[15px] font-semibold text-accent-ink transition-transform duration-200 hover:-translate-y-0.5 active:translate-y-0"
+        >
+          获取技能
+        </a>
+      </div>
     </div>
   </div>
 </section>
