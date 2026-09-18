@@ -1,0 +1,134 @@
+@import "tailwindcss";
+
+@import "@fontsource-variable/noto-sans-sc";
+@import "@fontsource-variable/space-grotesk";
+@import "@fontsource-variable/jetbrains-mono";
+
+/* dark: utilities follow the .dark class set by the theme script, not the media query */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Semantic tokens: one variable set per theme, utilities never need dark: */
+:root {
+  --bg: #f7f5f6;
+  --surface: #fdfcfd;
+  --elevated: #efecef;
+  --ink: #1d1a20;
+  --muted: #55505c;
+  --faint: #726c79;
+  --line: #e6e2e8;
+  --line-strong: #d3cdd7;
+  --accent: #c13a12;
+  --accent-ink: #ffffff;
+  --accent-soft: #fae8e0;
+  --code-bg: #f1eef2;
+}
+
+:root.dark {
+  --bg: #0d0b10;
+  --surface: #131017;
+  --elevated: #1a161f;
+  --ink: #f0eef2;
+  --muted: #a8a2ae;
+  --faint: #888292;
+  --line: #26212d;
+  --line-strong: #383142;
+  --accent: #f2542d;
+  --accent-ink: #170a05;
+  --accent-soft: #2a120a;
+  --code-bg: #100d13;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-elevated: var(--elevated);
+  --color-ink: var(--ink);
+  --color-muted: var(--muted);
+  --color-faint: var(--faint);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-accent: var(--accent);
+  --color-accent-ink: var(--accent-ink);
+  --color-accent-soft: var(--accent-soft);
+  --color-code-bg: var(--code-bg);
+
+  --font-sans: "Noto Sans SC Variable", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --font-display: "Space Grotesk Variable", "Noto Sans SC Variable", "PingFang SC", sans-serif;
+  --font-mono: "JetBrains Mono Variable", ui-monospace, "Cascadia Code", monospace;
+
+  --radius-card: 16px;
+  --radius-tile: 10px;
+}
+
+html {
+  scroll-behavior: smooth;
+  background-color: var(--bg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  font-family: var(--font-sans);
+  color: var(--ink);
+  background-color: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+/* Tool marquee (single marquee on the page) */
+@keyframes marquee-x {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.marquee-track {
+  animation: marquee-x 45s linear infinite;
+  will-change: transform;
+}
+
+.marquee-wrap:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* Content stays visible without JS; scroll reveal is progressive enhancement */
+@keyframes fade-rise {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.anim-swap {
+  animation: fade-rise 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .reveal {
+      animation: fade-rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 45%;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track,
+  .anim-swap {
+    animation: none;
+  }
+}

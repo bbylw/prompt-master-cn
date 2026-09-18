@@ -1,0 +1,27 @@
+---
+import CopyCode from '../islands/CopyCode';
+
+const memoryBlock = `## Memory (Carry Forward from Previous Context)
+- Stack: React 18 + TypeScript + Supabase
+- Auth uses JWT stored in httpOnly cookies, not localStorage
+- Component naming convention: PascalCase, no default exports
+- Design system: Tailwind only, no custom CSS files
+- Architecture: no Redux, context API only`;
+---
+
+<section id="memory" aria-labelledby="memory-h" class="border-b border-line bg-bg">
+  <div class="mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 px-4 py-20 sm:px-6 lg:grid-cols-[1fr_1.1fr] lg:gap-16 lg:py-28">
+    <div>
+      <h2 id="memory-h" class="font-display text-3xl leading-[1.2] font-bold tracking-tight text-ink md:text-4xl">
+        记忆块：长会话里最有效的单一修复
+      </h2>
+      <p class="mt-4 max-w-[44ch] text-[15px] leading-relaxed text-muted">
+        当你的对话已有历史时，Prompt Master 会提取既往决策并前置一个记忆块，让 AI 永不与前面的工作矛盾。
+      </p>
+      <p class="mt-3 max-w-[44ch] text-[15px] leading-relaxed text-muted">
+        大多数白白浪费的重新提问，都源于 AI 忘了你已经做过的决定。
+      </p>
+    </div>
+    <CopyCode client:visible code={memoryBlock} caption="一个真实的记忆块示例" />
+  </div>
+</section>

@@ -1,0 +1,18 @@
+---
+import ExamplesTabs from '../islands/ExamplesTabs';
+import { examples } from '../data/examples';
+---
+
+<section id="examples" aria-labelledby="examples-h" class="border-b border-line bg-bg">
+  <div class="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:py-28">
+    <h2 id="examples-h" class="font-display text-3xl leading-[1.2] font-bold tracking-tight text-ink md:text-4xl">
+      从一句话到可交付的提示词
+    </h2>
+    <p class="mt-4 max-w-[52ch] text-[15px] leading-relaxed text-muted">
+      两个完整示例：一句自然语言请求，如何变成一条目标明确、规格精确的提示词。
+    </p>
+    <div class="mt-10 min-w-0">
+      <ExamplesTabs client:visible examples={examples} />
+    </div>
+  </div>
+</section>

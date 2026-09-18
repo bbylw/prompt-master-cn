@@ -1,0 +1,46 @@
+---
+const tools = [
+  'Claude', 'ChatGPT', 'Codex', 'Grok', 'Gemini', 'o1 / o3', 'MiniMax',
+  'Cursor', 'Claude Code', 'GitHub Copilot', 'Windsurf', 'Cline', 'Bolt', 'v0', 'Lovable',
+  'Devin', 'Manus', 'Perplexity', 'Midjourney', 'DALL-E', 'Stable Diffusion', 'ComfyUI',
+  'Sora', 'Runway', 'Kling', 'ElevenLabs', 'Zapier', 'Make', 'n8n', 'Ollama', 'DeepSeek', 'Qwen',
+];
+const stats = [
+  { value: '30+', label: '工具专属档案' },
+  { value: '13', label: '提示词模板自动选择' },
+  { value: '5', label: '安全技术按需应用' },
+  { value: '37', label: '烧额度模式检测' },
+];
+const doubled = [...tools, ...tools];
+---
+
+<section aria-label="适用工具" class="border-y border-line bg-surface">
+  <div class="marquee-wrap relative overflow-hidden py-5">
+    <div
+      class="pointer-events-none absolute inset-y-0 left-0 z-10 w-16 bg-gradient-to-r from-surface to-transparent"
+      aria-hidden="true"
+    ></div>
+    <div
+      class="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-surface to-transparent"
+      aria-hidden="true"
+    ></div>
+    <div class="marquee-track flex w-max items-center gap-3" aria-hidden="true">
+      {doubled.map((tool) => (
+        <span class="rounded-full border border-line bg-bg px-4 py-1.5 font-mono text-[12.5px] whitespace-nowrap text-muted">
+          {tool}
+        </span>
+      ))}
+    </div>
+  </div>
+</section>
+
+<section aria-label="关键数字" class="border-b border-line bg-bg">
+  <div class="mx-auto grid max-w-6xl grid-cols-2 gap-x-6 gap-y-10 px-4 py-14 sm:px-6 lg:grid-cols-4">
+    {stats.map((stat) => (
+      <div>
+        <p class="font-display text-4xl font-bold tracking-tight text-ink md:text-[2.75rem]">{stat.value}</p>
+        <p class="mt-1.5 text-sm text-muted">{stat.label}</p>
+      </div>
+    ))}
+  </div>
+</section>

@@ -1,0 +1,39 @@
+---
+const steps = [
+  { title: '识别目标工具', desc: '判断提示词面向哪个 AI 系统，静默路由到正确的方案' },
+  { title: '提取意图的 9 个维度', desc: '任务、输入、输出、约束、上下文、受众、记忆、成功标准、示例' },
+  { title: '提出针对性的澄清问题', desc: '关键信息缺失时最多问 3 个问题，绝不多问' },
+  { title: '路由到正确的框架', desc: '自动选择并应用合适的提示架构，永不展示给用户' },
+  { title: '只应用安全的技术', desc: '按需使用角色设定、few-shot 示例、XML 结构、事实锚定、记忆块' },
+  { title: '核查模型时效性', desc: '当请求依赖“最新”时，对照官方文档核实确切的模型与参数' },
+  { title: '执行 token 效率审计', desc: '删掉每一个不会改变输出的词' },
+  { title: '交付提示词', desc: '一个干净可复制的代码块，附一行策略说明' },
+];
+---
+
+<section id="how" aria-labelledby="how-h" class="border-b border-line bg-surface">
+  <div class="mx-auto grid max-w-6xl grid-cols-1 gap-12 px-4 py-20 sm:px-6 lg:grid-cols-[1fr_1.25fr] lg:gap-20 lg:py-28">
+    <div class="lg:sticky lg:top-24 lg:self-start">
+      <h2 id="how-h" class="font-display text-3xl leading-[1.2] font-bold tracking-tight text-ink md:text-4xl">
+        一条结构化流水线，跑在每个请求上
+      </h2>
+      <p class="mt-4 max-w-[40ch] text-[15px] leading-relaxed text-muted">
+        从识别目标工具到 token 效率审计，八个步骤静默完成。你永远看不到框架名称，只看到最终的提示词。
+      </p>
+    </div>
+
+    <ol class="min-w-0">
+      {steps.map((step, i) => (
+        <li class:list={['flex gap-5 py-5', i < steps.length - 1 && 'border-b border-line']}>
+          <span class="mt-[9px] flex w-5 shrink-0 justify-center" aria-hidden="true">
+            <span class="h-2 w-2 rounded-full bg-accent"></span>
+          </span>
+          <div class="min-w-0">
+            <h3 class="text-[15px] font-semibold text-ink">{step.title}</h3>
+            <p class="mt-1 text-sm leading-relaxed text-muted">{step.desc}</p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>

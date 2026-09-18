@@ -1,0 +1,36 @@
+---
+const asks = [
+  { text: '帮我写一个给 Cursor 的提示词，用来重构我的鉴权模块', hint: 'Cursor' },
+  { text: '我需要一个给 Claude Code 的提示词来构建 REST API。你需要什么信息直接问我', hint: 'Claude Code' },
+  { text: '这是我给 GPT-4o 写的一个烂提示，帮我修一下：[粘贴提示]', hint: 'ChatGPT' },
+  { text: '为夜晚的赛博朋克城市生成一个 Midjourney 提示词', hint: 'Midjourney' },
+  { text: '我有一张参考图，帮我写一个只修改头部角度的编辑提示词', hint: '图像编辑' },
+  { text: '把这个提示词拆解并改写适配 Stable Diffusion', hint: 'Stable Diffusion' },
+];
+---
+
+<section id="usage" aria-labelledby="usage-h" class="border-b border-line bg-bg">
+  <div class="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:py-28">
+    <h2 id="usage-h" class="font-display text-3xl leading-[1.2] font-bold tracking-tight text-ink md:text-4xl">
+      像说话一样调用它
+    </h2>
+    <p class="mt-4 max-w-[46ch] text-[15px] leading-relaxed text-muted">
+      在 Claude 里不需要记命令，说出你要什么就行。它会自己判断目标工具并补齐缺失的信息。
+    </p>
+
+    <div class="mt-10 grid grid-cols-1 gap-4 md:grid-cols-2">
+      {asks.map((ask) => (
+        <figure class="rounded-card border border-line bg-surface p-5 transition-transform duration-200 hover:-translate-y-0.5">
+          <blockquote class="text-[15px] leading-relaxed text-ink">“{ask.text}”</blockquote>
+          <figcaption class="mt-3 font-mono text-[11px] text-faint">{ask.hint}</figcaption>
+        </figure>
+      ))}
+      <figure class="rounded-card border border-line-strong bg-elevated p-5 md:col-span-2">
+        <figcaption class="font-mono text-[11px] text-faint">也可以显式调用</figcaption>
+        <pre class="mt-2 overflow-x-auto font-mono text-[13.5px] leading-relaxed text-ink"><code>{`/prompt-master
+
+我想让 Claude Code 用 React 和 Supabase 构建一个待办应用`}</code></pre>
+      </figure>
+    </div>
+  </div>
+</section>

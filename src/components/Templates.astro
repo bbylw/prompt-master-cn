@@ -1,0 +1,31 @@
+---
+import { templates } from '../data/templates';
+---
+
+<section id="templates" aria-labelledby="templates-h" class="border-b border-line bg-surface">
+  <div class="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:py-28">
+    <h2 id="templates-h" class="font-display text-3xl leading-[1.2] font-bold tracking-tight text-ink md:text-4xl">
+      13 个提示词模板，自动选择
+    </h2>
+    <p class="mt-4 max-w-[52ch] text-[15px] leading-relaxed text-muted">
+      为每个任务自动挑选正确的架构并静默路由。横向滑动查看全部模板。
+    </p>
+  </div>
+
+  <div
+    role="region"
+    aria-label="模板列表，可横向滚动"
+    tabindex="0"
+    class="mx-auto max-w-6xl scroll-px-4 snap-x snap-mandatory overflow-x-auto px-4 pb-6 sm:px-6 lg:pb-10 [&::-webkit-scrollbar]:h-1.5 [&::-webkit-scrollbar-thumb]:rounded-full [&::-webkit-scrollbar-thumb]:bg-line-strong [&::-webkit-scrollbar-track]:bg-transparent"
+  >
+    <ul class="flex w-max gap-4 pr-6">
+      {templates.map((t) => (
+        <li class="w-[270px] shrink-0 snap-start rounded-card border border-line bg-bg p-5 transition-transform duration-200 hover:-translate-y-0.5">
+          <h3 class="font-mono text-[13.5px] font-semibold text-ink">{t.name}</h3>
+          <p class="mt-1 text-[13px] text-accent">{t.zh}</p>
+          <p class="mt-3 text-sm leading-relaxed text-muted">{t.best}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

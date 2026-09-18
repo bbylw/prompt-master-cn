@@ -1,0 +1,20 @@
+---
+const spokes = Array.from({ length: 12 }, (_, i) => i * 30);
+---
+
+<svg
+  viewBox="0 0 24 24"
+  fill="none"
+  aria-hidden="true"
+  class={Astro.props.class ?? 'h-7 w-7'}
+>
+  {spokes.map((deg) => (
+    <line
+      x1="12" y1="11.4" x2="12" y2="3.4"
+      stroke="var(--accent)"
+      stroke-width="2.4"
+      stroke-linecap="round"
+      transform={`rotate(${deg} 12 12)`}
+    />
+  ))}
+</svg>

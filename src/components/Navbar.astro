@@ -1,0 +1,28 @@
+---
+import NavActions from '../islands/NavActions';
+import StarMark from './StarMark.astro';
+---
+
+<header
+  class="sticky top-0 z-50 border-b border-line bg-bg/85 backdrop-blur-md supports-[prefers-reduced-transparency:reduce]:bg-bg"
+>
+  <nav
+    class="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6"
+    aria-label="主导航"
+  >
+    <a href="#top" class="flex items-center gap-2.5 font-display text-[15px] font-bold tracking-tight text-ink">
+      <StarMark class="h-6 w-6 shrink-0" />
+      Prompt Master
+    </a>
+
+    <div class="hidden items-center gap-1 lg:flex">
+      <a href="#usage" class="rounded-full px-3.5 py-2 text-sm font-medium text-muted transition-colors duration-200 hover:bg-elevated hover:text-ink">用法</a>
+      <a href="#how" class="rounded-full px-3.5 py-2 text-sm font-medium text-muted transition-colors duration-200 hover:bg-elevated hover:text-ink">原理</a>
+      <a href="#profiles" class="rounded-full px-3.5 py-2 text-sm font-medium text-muted transition-colors duration-200 hover:bg-elevated hover:text-ink">工具档案</a>
+      <a href="#patterns" class="rounded-full px-3.5 py-2 text-sm font-medium text-muted transition-colors duration-200 hover:bg-elevated hover:text-ink">模式库</a>
+      <a href="#install" class="rounded-full px-3.5 py-2 text-sm font-medium text-muted transition-colors duration-200 hover:bg-elevated hover:text-ink">安装</a>
+    </div>
+
+    <NavActions client:load />
+  </nav>
+</header>

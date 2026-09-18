@@ -1,0 +1,17 @@
+---
+import PatternsExplorer from '../islands/PatternsExplorer';
+---
+
+<section id="patterns" aria-labelledby="patterns-h" class="border-b border-line bg-bg">
+  <div class="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:py-28">
+    <h2 id="patterns-h" class="font-display text-3xl leading-[1.2] font-bold tracking-tight text-ink md:text-4xl">
+      检测 37 种烧额度模式
+    </h2>
+    <p class="mt-4 max-w-[52ch] text-[15px] leading-relaxed text-muted">
+      按类别切换，每个模式都附改前与改后的真实对比。
+    </p>
+    <div class="mt-10">
+      <PatternsExplorer client:visible />
+    </div>
+  </div>
+</section>

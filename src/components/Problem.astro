@@ -1,0 +1,33 @@
+---
+import { ArrowRight } from '@phosphor-icons/react';
+---
+
+<section aria-labelledby="problem-h" class="border-b border-line bg-bg">
+  <div class="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:py-28">
+    <h2 id="problem-h" class="max-w-[22ch] font-display text-3xl leading-[1.2] font-bold tracking-tight text-ink md:text-4xl">
+      每个 AI 用户都在以同样的方式浪费额度
+    </h2>
+
+    <ol class="mt-10 flex max-w-4xl flex-wrap items-center gap-2.5" aria-label="浪费循环">
+      {['写个模糊的提示', '得到错误的输出', '重新提问', '稍微接近', '再问一次', '第 4 次才拿到你要的东西'].map((step, i) => (
+        <li class="flex items-center gap-2.5">
+          <span class="rounded-full border border-line bg-surface px-4 py-2 text-sm whitespace-nowrap text-muted">{step}</span>
+          {i < 5 && <ArrowRight size={14} className="shrink-0 text-faint" aria-hidden="true" />}
+        </li>
+      ))}
+    </ol>
+
+    <p class="mt-6 max-w-[52ch] text-[15px] leading-relaxed text-muted">
+      这就是 3 次被浪费的调用。乘以每天 50 个提示，那就是实实在在流走的金钱和时间。
+    </p>
+
+    <figure class="mt-16 max-w-[34ch] border-l-2 border-accent pl-6 lg:mt-20">
+      <blockquote class="font-display text-xl leading-[1.5] font-semibold tracking-tight text-ink md:text-2xl">
+        “最好的提示词不是最长的那个，而是每一个词都在承担作用的。”
+      </blockquote>
+      <figcaption class="mt-4 text-sm text-muted">
+        大多数提示词生成器只会让提示更长。这项技能是让提示更锋利。
+      </figcaption>
+    </figure>
+  </div>
+</section>

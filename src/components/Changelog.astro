@@ -1,0 +1,14 @@
+---
+import ChangelogList from '../islands/ChangelogList';
+---
+
+<section id="changelog" aria-labelledby="changelog-h" class="border-b border-line bg-surface">
+  <div class="mx-auto max-w-4xl px-4 py-20 sm:px-6 lg:py-28">
+    <h2 id="changelog-h" class="font-display text-3xl leading-[1.2] font-bold tracking-tight text-ink md:text-4xl">
+      版本历史
+    </h2>
+    <div class="mt-8">
+      <ChangelogList client:visible />
+    </div>
+  </div>
+</section>
