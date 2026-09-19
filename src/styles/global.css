@@ -345,6 +345,21 @@ body {
     0 18px 40px -24px rgb(29 26 32 / 0.28);
 }
 
+/* Sticky header: border is transparent at the top, gains a hairline + soft shadow once scrolled */
+.site-header {
+  border-color: transparent;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+.site-header.is-scrolled {
+  border-color: var(--line);
+  box-shadow: 0 10px 30px -22px rgb(13 11 16 / 0.45);
+}
+
+:root.dark .site-header.is-scrolled {
+  box-shadow: 0 10px 30px -18px rgb(0 0 0 / 0.7);
+}
+
 /* Scrollspy: current section link in the sticky nav */
 .nav-link[aria-current="true"] {
   background: var(--elevated);

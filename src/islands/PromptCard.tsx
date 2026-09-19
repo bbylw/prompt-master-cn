@@ -31,7 +31,7 @@ export default function PromptCard({ request, prompt, meta, scrollable }: Prompt
       <div className="border-b border-line px-5 py-4">
         <p className="text-[11px] font-medium text-faint">用户输入</p>
         <p className="mt-1.5 text-sm leading-relaxed text-ink">
-          "{request}"
+          “{request}”
         </p>
       </div>
 
@@ -40,9 +40,11 @@ export default function PromptCard({ request, prompt, meta, scrollable }: Prompt
           type="button"
           onClick={() => copy(prompt)}
           aria-label={copied ? '已复制' : '复制提示词'}
-          className="absolute right-4 top-4 z-10 flex h-8 w-8 items-center justify-center rounded-full border border-line bg-bg text-muted transition-colors duration-200 hover:border-line-strong hover:text-ink active:scale-[0.96] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+          data-copied={copied || undefined}
+          className="absolute right-4 top-4 z-10 flex h-8 items-center gap-1.5 rounded-full border border-line bg-bg px-2.5 text-xs font-medium text-muted transition-[color,border-color,background-color] duration-200 hover:border-line-strong hover:text-ink active:scale-[0.96] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent data-copied:border-accent/40 data-copied:bg-accent-soft data-copied:text-accent"
         >
-          {copied ? <Check size={15} weight="bold" /> : <Copy size={15} />}
+          {copied ? <Check size={14} weight="bold" /> : <Copy size={14} />}
+          {copied && <span className="anim-swap">已复制</span>}
         </button>
         <p className="text-[11px] font-medium text-faint">生成的提示词</p>
         <pre

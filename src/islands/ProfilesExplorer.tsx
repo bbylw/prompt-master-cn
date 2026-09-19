@@ -25,7 +25,7 @@ export default function ProfilesExplorer() {
             type="button"
             aria-pressed={group === g.key}
             onClick={() => selectGroup(g.key)}
-            className={`h-9 rounded-full px-4 text-[13px] font-medium transition-colors duration-200 ${
+            className={`h-9 rounded-full px-4 text-[13px] font-medium transition-colors duration-200 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent ${
               group === g.key
                 ? 'bg-ink text-bg'
                 : 'border border-line bg-surface text-muted hover:border-line-strong hover:text-ink'
@@ -42,13 +42,11 @@ export default function ProfilesExplorer() {
             key={p.tool}
             className="flex flex-col rounded-tile border border-line bg-bg p-3 transition-transform duration-200 hover:-translate-y-0.5 hover:border-line-strong hover:shadow-[0_10px_24px_-16px_rgba(13,11,16,0.35)] sm:p-4"
           >
-            <div className="flex flex-col gap-0.5 sm:flex-row sm:items-center sm:justify-between sm:gap-2">
-              <h3 className="text-[13.5px] font-semibold text-ink sm:text-[14px]">{p.tool}</h3>
-              <p className="truncate font-mono text-[10.5px] text-accent sm:max-w-[100px] sm:shrink-0">
-                {p.category}
-              </p>
-            </div>
-            <p className="mt-1.5 text-[12.5px] leading-relaxed text-muted line-clamp-2 sm:mt-2 sm:text-[13px]">
+            <h3 className="text-[13.5px] font-semibold text-ink sm:text-[14px]">{p.tool}</h3>
+            <p className="mt-1.5 w-fit rounded-full bg-accent-soft px-2 py-0.5 font-mono text-[10.5px] leading-snug text-accent">
+              {p.category}
+            </p>
+            <p className="mt-2.5 text-[12.5px] leading-relaxed text-muted line-clamp-2 sm:text-[13px]">
               {p.fixes}
             </p>
           </div>
@@ -60,7 +58,7 @@ export default function ProfilesExplorer() {
           type="button"
           onClick={() => setExpanded((v) => !v)}
           aria-expanded={expanded}
-          className="mt-6 flex h-10 w-fit items-center gap-2 rounded-full border border-line-strong px-5 text-sm font-semibold text-ink transition-colors duration-200 hover:border-ink active:scale-[0.99]"
+          className="mt-6 flex h-10 w-fit items-center gap-2 rounded-full border border-line-strong px-5 text-sm font-semibold text-ink transition-colors duration-200 hover:border-ink active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
         >
           {expanded ? '收起' : `展开全部 ${shown.length} 个档案`}
           <CaretDown

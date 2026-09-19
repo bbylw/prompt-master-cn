@@ -50,7 +50,7 @@ const groups: { title: string; links: { label: string; href: string; external?: 
               <li>
                 <a
                   href={link.href}
-                  class="text-sm text-muted transition-colors duration-200 hover:text-ink"
+                  class="rounded-sm text-sm text-muted transition-colors duration-200 hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
                   {...link.external ? { target: '_blank', rel: 'noopener noreferrer' } : {}}
                 >
                   {link.label}

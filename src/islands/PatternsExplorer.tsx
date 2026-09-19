@@ -50,8 +50,8 @@ export default function PatternsExplorer() {
                   </p>
                   <p className="mt-1 text-[13.5px] leading-relaxed text-muted">{p.before}</p>
                 </div>
-                <div className="hidden items-center justify-center px-1 md:flex">
-                  <ArrowRight size={16} className="text-accent" aria-hidden="true" />
+                <div className="flex items-center justify-center px-1">
+                  <ArrowRight size={16} className="rotate-90 text-accent md:rotate-0" aria-hidden="true" />
                 </div>
                 <div className="rounded-tile border border-accent/25 bg-accent-soft px-4 py-3">
                   <p className="flex items-center gap-1.5 text-[11px] font-medium text-faint">
