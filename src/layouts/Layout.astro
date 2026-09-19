@@ -2,6 +2,10 @@
 import '../styles/global.css';
 import Navbar from '../components/Navbar.astro';
 import Footer from '../components/Footer.astro';
+// Preload only the latin slices that paint above the fold; the hashed URLs
+// stay in sync with the @font-face rules emitted by the fontsource CSS.
+import spaceGroteskUrl from '@fontsource-variable/space-grotesk/files/space-grotesk-latin-wght-normal.woff2?url';
+import jetbrainsMonoUrl from '@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2?url';
 
 interface Props {
   title: string;
@@ -35,6 +39,8 @@ const jsonLd = {
     <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
     <meta name="color-scheme" content="light dark" />
+    <link rel="preload" href={spaceGroteskUrl} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={jetbrainsMonoUrl} as="font" type="font/woff2" crossorigin />
     <link rel="canonical" href={canonical} />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Prompt Master" />

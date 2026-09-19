@@ -1,6 +1,7 @@
 @import "tailwindcss";
 
-@import "@fontsource-variable/noto-sans-sc";
+/* Latin display + mono only. CJK body text uses the system stack: a webfont
+   CJK family (Noto Sans SC) ships 100+ unicode-range slices, ~4.7 MB total. */
 @import "@fontsource-variable/space-grotesk";
 @import "@fontsource-variable/jetbrains-mono";
 
@@ -52,8 +53,8 @@
   --color-accent-soft: var(--accent-soft);
   --color-code-bg: var(--code-bg);
 
-  --font-sans: "Noto Sans SC Variable", "PingFang SC", "Microsoft YaHei", sans-serif;
-  --font-display: "Space Grotesk Variable", "Noto Sans SC Variable", "PingFang SC", sans-serif;
+  --font-sans: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", "Noto Sans SC", "Source Han Sans SC", system-ui, sans-serif;
+  --font-display: "Space Grotesk Variable", -apple-system, "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", system-ui, sans-serif;
   --font-mono: "JetBrains Mono Variable", ui-monospace, "Cascadia Code", monospace;
 
   --radius-card: 16px;
@@ -143,11 +144,42 @@ body {
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .marquee-track,
-  .anim-swap {
-    animation: none;
-  }
+/* Mobile nav dialog: CSS enter/exit driven by data-state (replaces motion/react) */
+@keyframes overlay-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes overlay-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes panel-in {
+  from { opacity: 0; transform: translateY(-12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes panel-out {
+  from { opacity: 1; transform: translateY(0); }
+  to { opacity: 0; transform: translateY(-12px); }
+}
+
+.menu-overlay[data-state="open"] {
+  animation: overlay-in 0.2s ease-out both;
+}
+
+.menu-overlay[data-state="open"] .menu-panel {
+  animation: panel-in 0.25s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.menu-overlay[data-state="closing"] {
+  animation: overlay-out 0.2s ease-in both;
+  pointer-events: none;
+}
+
+.menu-overlay[data-state="closing"] .menu-panel {
+  animation: panel-out 0.2s ease-in both;
 }
 
 /* Fixed film-grain texture: pointer-events-none, never on scrolling containers */

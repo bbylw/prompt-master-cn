@@ -23,7 +23,7 @@ import StarMark from './StarMark.astro';
       <a href="#install" class="nav-link rounded-full px-3.5 py-2 text-sm font-medium text-muted transition-colors duration-200 hover:bg-elevated hover:text-ink" data-spy="install">安装</a>
     </div>
 
-    <NavActions client:load />
+    <NavActions client:idle />
   </nav>
 
   <script is:inline defer>
@@ -41,7 +41,7 @@ import StarMark from './StarMark.astro';
           links.forEach(l => l.removeAttribute('aria-current'));
           const next = [...visible].map(id => map.get(id)).find(Boolean);
           if (next) next.setAttribute('aria-current', 'true');
-        }, { rootMargin: '-40% 0px -55% 0px' });
+        }, { rootMargin: '-30% 0px -60% 0px' });
         ['usage','how','profiles','patterns','install'].forEach(id => {
           const el = document.getElementById(id);
           if (el) obs.observe(el);
