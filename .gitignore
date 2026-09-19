@@ -28,5 +28,6 @@ pnpm-debug.log*
 # local pre-polish backup (not part of the repo)
 .polish-backup/
 
-# third-party agent scratch dir
+# third-party agent scratch dirs
 .freebuff/
+.kilo/

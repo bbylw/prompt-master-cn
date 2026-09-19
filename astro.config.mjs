@@ -4,11 +4,17 @@ import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 
-// Set SITE_URL at build time to bake the real domain into canonical/OG/sitemap,
-// e.g. SITE_URL=https://prompt-master.example.com bun run build
+// `site` is baked into canonical / OG / sitemap / robots URLs.
+// Override with SITE_URL for previews, e.g. SITE_URL=https://staging.example.com bun run build
+const PRODUCTION_SITE = 'https://prompt-master.ndjp.net';
+
+if (process.env.CI && !process.env.SITE_URL) {
+  throw new Error('SITE_URL must be set in CI so canonical/sitemap URLs point at the deployed domain.');
+}
+
 export default defineConfig({
   integrations: [react(), sitemap()],
-  site: process.env.SITE_URL || 'https://prompt-master.example.com',
+  site: process.env.SITE_URL || PRODUCTION_SITE,
   vite: {
     plugins: [tailwindcss()],
   },
