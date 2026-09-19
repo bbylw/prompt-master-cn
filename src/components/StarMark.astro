@@ -1,13 +1,19 @@
 ---
+interface Props {
+  /** Stroke colour for the spokes; defaults to the accent token. */
+  stroke?: string;
+  class?: string;
+}
+
+const { stroke = 'var(--accent)', class: className = 'h-7 w-7' } = Astro.props;
 const spokes = Array.from({ length: 12 }, (_, i) => i * 30);
-const stroke = Astro.props.stroke ?? 'var(--accent)';
 ---
 
 <svg
   viewBox="0 0 24 24"
   fill="none"
   aria-hidden="true"
-  class={Astro.props.class ?? 'h-7 w-7'}
+  class={className}
 >
   {spokes.map((deg) => (
     <line

@@ -14,21 +14,16 @@ export default function PromptCard({ request, prompt, meta, scrollable }: Prompt
   const preRef = useRef<HTMLPreElement>(null);
   const [fadeRight, setFadeRight] = useState(false);
 
+  // Overflow only changes when the <pre> resizes or scrolls horizontally (see onScroll below);
+  // no need to listen to page scroll.
   useEffect(() => {
-    const update = () => {
-      const el = preRef.current;
-      if (!el) return;
-      setFadeRight(el.scrollWidth > el.clientWidth + el.scrollLeft + 4);
-    };
+    const el = preRef.current;
+    if (!el) return;
+    const update = () => setFadeRight(el.scrollWidth > el.clientWidth + el.scrollLeft + 4);
     update();
     const ro = new ResizeObserver(update);
-    const el = preRef.current;
-    if (el) ro.observe(el);
-    window.addEventListener('scroll', update, true);
-    return () => {
-      ro.disconnect();
-      window.removeEventListener('scroll', update, true);
-    };
+    ro.observe(el);
+    return () => ro.disconnect();
   }, []);
 
   return (

@@ -1,6 +1,7 @@
 import { chromium } from 'playwright';
 
-const url = 'http://localhost:4321/';
+// Usage: SITE_URL=http://localhost:4321 bun scripts/shots.mjs  (or pass the URL as argv[2])
+const url = new URL(process.argv[2] ?? process.env.SITE_URL ?? 'http://localhost:4321/').href;
 
 const browser = await chromium.launch();
 

@@ -1,11 +1,20 @@
 import { useState } from 'react';
+import { CaretDown } from '@phosphor-icons/react';
 import { groups, profiles, type ProfileGroup } from '../data/profiles';
+
+const PREVIEW_COUNT = 12;
 
 export default function ProfilesExplorer() {
   const [group, setGroup] = useState<ProfileGroup | 'all'>('all');
   const [expanded, setExpanded] = useState(false);
   const shown = group === 'all' ? profiles : profiles.filter((p) => p.group === group);
-  const visible = expanded ? shown : shown.slice(0, 12);
+  const visible = expanded ? shown : shown.slice(0, PREVIEW_COUNT);
+
+  const selectGroup = (key: ProfileGroup | 'all') => {
+    setGroup(key);
+    // A fresh filter should start collapsed again so the grid doesn't jump in height.
+    setExpanded(false);
+  };
 
   return (
     <div>
@@ -15,7 +24,7 @@ export default function ProfilesExplorer() {
             key={g.key}
             type="button"
             aria-pressed={group === g.key}
-            onClick={() => setGroup(g.key)}
+            onClick={() => selectGroup(g.key)}
             className={`h-9 rounded-full px-4 text-[13px] font-medium transition-colors duration-200 ${
               group === g.key
                 ? 'bg-ink text-bg'
@@ -46,13 +55,20 @@ export default function ProfilesExplorer() {
         ))}
       </div>
 
-      {shown.length > 12 && (
+      {shown.length > PREVIEW_COUNT && (
         <button
           type="button"
-          onClick={() => setExpanded(true)}
+          onClick={() => setExpanded((v) => !v)}
+          aria-expanded={expanded}
           className="mt-6 flex h-10 w-fit items-center gap-2 rounded-full border border-line-strong px-5 text-sm font-semibold text-ink transition-colors duration-200 hover:border-ink active:scale-[0.99]"
         >
-          展开全部 {shown.length} 个档案
+          {expanded ? '收起' : `展开全部 ${shown.length} 个档案`}
+          <CaretDown
+            size={14}
+            weight="bold"
+            className={`transition-transform duration-200 ${expanded ? 'rotate-180' : ''}`}
+            aria-hidden="true"
+          />
         </button>
       )}
 

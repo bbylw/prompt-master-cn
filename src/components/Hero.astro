@@ -1,13 +1,10 @@
 ---
 import PromptCard from '../islands/PromptCard';
 import StarMark from './StarMark.astro';
+import { examples } from '../data/examples';
 
-const mjPrompt = `lone samurai standing in heavy rain at night, traditional armor,
-neon reflections on wet cobblestone street, cinematic lighting,
-dramatic shadows, fog, ultra detailed, photorealistic,
-shallow depth of field --ar 16:9 --v 6 --style raw
-
-negative: blurry, low quality, watermark, cartoon, anime, extra limbs`;
+// The hero showcases the first example (Midjourney); keep it in sync with the Examples section.
+const hero = examples[0];
 ---
 
 <section id="top" class="relative overflow-hidden">
@@ -53,17 +50,6 @@ negative: blurry, low quality, watermark, cartoon, anime, extra limbs`;
       </div>
     </div>
 
-    <PromptCard
-      client:load
-      request="给我写一个 midjourney 提示词：一个写实风格的武士在雨夜中伫立"
-      prompt={mjPrompt}
-      meta={{
-        tool: 'Midjourney',
-        framework: 'Visual Descriptor（视觉描述符）',
-        tokens: '轻量，约 60',
-        strategy:
-          '用逗号分隔的描述符代替整句散文，光照与氛围锚定在前，锁定宽高比和版本，负向提示防止风格漂移。',
-      }}
-    />
+    <PromptCard client:load request={hero.request} prompt={hero.prompt} meta={hero.meta} />
   </div>
 </section>
