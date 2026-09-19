@@ -26,7 +26,9 @@ export default function PatternsExplorer() {
             }`}
           >
             {c.label}
-            <span className="ml-1.5 font-mono text-[11px] opacity-60">{c.patterns.length}</span>
+            <span className="ml-2 text-[12px] font-medium tabular-nums opacity-55" aria-label={`${c.patterns.length} 个模式`}>
+              {c.patterns.length}
+            </span>
           </button>
         ))}
       </div>
